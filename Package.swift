@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "WellBiteAPI",
     platforms: [
-       .macOS(.v13)
+       .macOS(.v15)
     ],
     dependencies: [
         // 💧 A server-side Swift web framework.
@@ -39,9 +39,11 @@ let package = Package(
             ],
             swiftSettings: swiftSettings
         )
-    ]
+    ],
+    swiftLanguageModes: [.v6]
 )
 
 var swiftSettings: [SwiftSetting] { [
     .enableUpcomingFeature("ExistentialAny"),
+    .enableUpcomingFeature("StrictConcurrency")
 ] }
