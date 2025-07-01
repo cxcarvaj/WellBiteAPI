@@ -6,19 +6,46 @@ import Vapor
 
 // configures your application
 public func configure(_ app: Application) async throws {
-    // uncomment to serve files from /Public folder
-    // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
+    app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
+    
+    app.passwords.use(.bcrypt)
+    
+    switch app.environment {
+    case .testing:
+        app.passwords.use(.plaintext)
+    default: break
+    }
 
-    app.databases.use(DatabaseConfigurationFactory.postgres(configuration: .init(
-        hostname: Environment.get("DATABASE_HOST") ?? "localhost",
-        port: Environment.get("DATABASE_PORT").flatMap(Int.init(_:)) ?? SQLPostgresConfiguration.ianaPortNumber,
-        username: Environment.get("DATABASE_USERNAME") ?? "vapor_username",
-        password: Environment.get("DATABASE_PASSWORD") ?? "vapor_password",
-        database: Environment.get("DATABASE_NAME") ?? "vapor_database",
-        tls: .prefer(try .init(configuration: .clientDefault)))
-    ), as: .psql)
+    guard let hostname = Environment.get("DB_HOST"),
+          let portString = Environment.get("DB_PORT"),
+          let username = Environment.get("DB_USERNAME"),
+          let password = Environment.get("DB_PASSWORD"),
+          let database = Environment.get("DB_DATABASE"),
+          let port = Int(portString) else {
+        fatalError("⛔️ Error crítico: No se pudieron obtener todas las variables de entorno necesarias para PostgreSQL. Asegúrate de configurar DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD y DB_DATABASE en tu archivo .env")
+    }
+    
+    let psqlConfig = SQLPostgresConfiguration(
+        hostname: hostname,
+        port: port,
+        username: username,
+        password: password,
+        database: database,
+        tls: .disable
+    )
+    
+    app.databases.use(.postgres(configuration: psqlConfig), as: .psql)
+    print("💾 PostgreSQL configurado correctamente con host: \(hostname), base de datos: \(database)")
 
-    app.migrations.add(CreateTodo())
+    app.migrations.add(UsersMigrations())
+    app.migrations.add(RefreshTokensMigration())
+    app.migrations.add(NutritionPlansMigration())
+    app.migrations.add(NutritionPlanItemsMigration())
+    app.migrations.add(MealEntriesMigration())
+    app.migrations.add(EmotionalEntriesMigration())
+    app.migrations.add(DailyTrackingsMigration())
+    app.migrations.add(DailyMealTrackingsMigration())
+    app.migrations.add(WaterIntakeEntriesMigration())
 
     app.views.use(.leaf)
 

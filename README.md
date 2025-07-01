@@ -41,6 +41,7 @@ Adicionalmente, debemos modificar el .gitignore para agregar el documento de `pg
 Primero, asegúrate de que [Docker Desktop](https://www.docker.com/products/docker-desktop) esté corriendo. Luego:
 
 ```bash
+chmod +x db_create.sh   # Dar permisos de ejecución
 ./db_create.sh          # Ejecuta el script para crear la base de datos
                         # y genera la contraseña en el fichero db
 ```
