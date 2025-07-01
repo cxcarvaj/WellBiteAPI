@@ -16,7 +16,7 @@ final class Users: Model, @unchecked Sendable {
     @Field(key: .password) var password: String
     @Field(key: .firstName) var firstName: String
     @Field(key: .lastName) var lastName: String
-    @Enum(key: .role) var role: Role
+    @Enum(key: .userRole) var userRole: UserRole
     @Field(key: .birthday) var birthday: Date
     @Enum(key: .gender) var gender: Gender
     @Field(key: .avatar) var avatar: String?
@@ -33,7 +33,7 @@ final class Users: Model, @unchecked Sendable {
          password: String,
          firstName: String,
          lastName: String,
-         role: Role,
+         userRole: UserRole,
          birthday: Date,
          gender: Gender,
          avatar: String? = nil,
@@ -44,7 +44,7 @@ final class Users: Model, @unchecked Sendable {
         self.password = password
         self.firstName = firstName
         self.lastName = lastName
-        self.role = role
+        self.userRole = userRole
         self.birthday = birthday
         self.gender = gender
         self.avatar = avatar

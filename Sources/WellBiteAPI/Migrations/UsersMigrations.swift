@@ -10,7 +10,7 @@ import Fluent
 
 struct UsersMigrations: AsyncMigration {
     func prepare(on database: any Database) async throws {
-        let role = try await database.enum("role")
+        let userRole = try await database.enum("user_role")
             .case("admin")
             .case("client")
             .case("professional")
@@ -30,7 +30,7 @@ struct UsersMigrations: AsyncMigration {
              .field(.password, .string, .required)
              .field(.firstName, .string, .required)
              .field(.lastName, .string, .required)
-             .field(.role, role, .required, .custom("DEFAULT 'none'"))
+             .field(.userRole, userRole, .required, .custom("DEFAULT 'none'"))
              .field(.birthday, .date, .required)
              .field(.gender, gender, .required)
              .field(.avatar, .string)

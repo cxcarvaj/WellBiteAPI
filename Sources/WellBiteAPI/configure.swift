@@ -37,6 +37,7 @@ public func configure(_ app: Application) async throws {
     app.databases.use(.postgres(configuration: psqlConfig), as: .psql)
     print("💾 PostgreSQL configurado correctamente con host: \(hostname), base de datos: \(database)")
 
+    app.migrations.add(SharedEnumsMigration())
     app.migrations.add(UsersMigrations())
     app.migrations.add(RefreshTokensMigration())
     app.migrations.add(NutritionPlansMigration())
@@ -46,6 +47,7 @@ public func configure(_ app: Application) async throws {
     app.migrations.add(DailyTrackingsMigration())
     app.migrations.add(DailyMealTrackingsMigration())
     app.migrations.add(WaterIntakeEntriesMigration())
+    app.migrations.add(RemoveSharedEnumsMigration())
 
     app.views.use(.leaf)
 

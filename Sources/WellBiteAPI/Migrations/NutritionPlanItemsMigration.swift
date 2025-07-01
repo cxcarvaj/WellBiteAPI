@@ -10,13 +10,8 @@ import Fluent
 
 struct NutritionPlanItemsMigration: AsyncMigration {
     func prepare(on database: any Database) async throws {
-        let mealType = try await database.enum("meal_type")
-            .case("breakfast")
-            .case("lunch")
-            .case("dinner")
-            .case("snack")
-            .create()
-        
+        let mealType = try await database.enum("meal_type").read()
+
         try await database.schema(NutritionPlanItems.schema)
             .id()
             .field(.nutritionPlanId, .uuid, .required, .references(NutritionPlans.schema, .id, onDelete: .cascade))

@@ -42,7 +42,7 @@ struct AccessTokenPayload: JWTPayload {
     // Claims personalizados
     var userId: UUID
     var email: String
-    var role: Role
+    var role: UserRole
     
     func verify(using algorithm: some JWTAlgorithm) async throws {
         try exp.verifyNotExpired()

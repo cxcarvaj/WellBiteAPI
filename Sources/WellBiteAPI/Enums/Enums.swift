@@ -5,7 +5,7 @@
 //  Created by Carlos Xavier Carvajal Villegas on 30/6/25.
 //
 
-enum Role: String, Codable {
+enum UserRole: String, Codable {
     case admin, professional, client, none
 }
 
