@@ -17,16 +17,17 @@ final class DailyTrackings: Model, @unchecked Sendable {
     @Field(key: .date) var date: Date
     @Field(key: .totalKcalGoal) var totalKcalGoal: Int?
     @Field(key: .totalKcalConsumed) var totalKcalConsumed: Int
-    @Field(key: .waterGoalml) var waterGoalml: Int
-    @Field(key: .waterIntakeml) var waterIntakeml: Int
+    @Field(key: .waterGoalMl) var waterGoalMl: Int
+    @Field(key: .waterIntakeMl) var waterIntakeMl: Int
     @Field(key: .mealsCompleted) var mealsCompleted: Int
     @Field(key: .emotionSummary) var emotionSummary: String?
     @Timestamp(key: .createdAt, on: .create) var createdAt: Date?
     
     // Relationships
+    @Children(for: \.$dailyTracking) var mealTrackings: [DailyMealTrackings]
     @Children(for: \.$dailyTracking) var waterIntakes: [WaterIntakeEntries]
-    @Children(for: \.$dailyTracking) var meals: [DailyMealTrackings]
-    
+    @Children(for: \.$dailyTracking) var mealEntries: [MealEntries]
+
     init() {}
     
     init(
@@ -35,8 +36,8 @@ final class DailyTrackings: Model, @unchecked Sendable {
         date: Date = Calendar.current.startOfDay(for: .now),
         totalKcalGoal: Int? = nil,
         totalKcalConsumed: Int = 0,
-        waterGoalml: Int = 2500,
-        waterIntakeml: Int = 0,
+        waterGoalMl: Int = 2500,
+        waterIntakeMl: Int = 0,
         mealsCompleted: Int = 0,
         emotionSummary: String? = nil
     ) {
@@ -45,8 +46,8 @@ final class DailyTrackings: Model, @unchecked Sendable {
         self.date = date
         self.totalKcalGoal = totalKcalGoal
         self.totalKcalConsumed = totalKcalConsumed
-        self.waterGoalml = waterGoalml
-        self.waterIntakeml = waterIntakeml
+        self.waterGoalMl = waterGoalMl
+        self.waterIntakeMl = waterIntakeMl
         self.mealsCompleted = mealsCompleted
         self.emotionSummary = emotionSummary
     }

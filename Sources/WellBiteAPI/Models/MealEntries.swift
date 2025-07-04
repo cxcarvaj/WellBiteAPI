@@ -13,6 +13,8 @@ final class MealEntries: Model, @unchecked Sendable {
     
     @ID(key: .id) var id: UUID?
     @Parent(key: .userId) var user: Users
+    @Parent(key: .dailyTrackingId) var dailyTracking: DailyTrackings
+    @OptionalParent(key: .dailyMealTrackingId) var dailyMealTracking: DailyMealTrackings?
     
     @Field(key: .photoUrl) var photoUrl: String
     @Field(key: .mealTime) var mealTime: Date
@@ -20,15 +22,16 @@ final class MealEntries: Model, @unchecked Sendable {
     @Field(key: .aiKcalEstimate) var aiKcalEstimate: Int?
     @Field(key: .aiMacrosEstimate) var aiMacrosEstimate: String? // JSON o formato estructurado
     
-    // Relaciones inversas
-    @Children(for: \.$mealEntry) var dailyMealTrackings: [DailyMealTrackings]
-    @Children(for: \.$mealEntry) var emotionalEntries: [EmotionalEntries]
-    
+    // Relationships
+    @OptionalChild(for: \.$mealEntry) var emotionalEntry: EmotionalEntries?
+
     init() {}
     
     init(
         id: UUID? = nil,
         userId: Users.IDValue,
+        dailyTrackingId: DailyTrackings.IDValue,
+        dailyMealTrackingId: DailyMealTrackings.IDValue? = nil,
         photoUrl: String,
         mealTime: Date,
         notes: String? = nil,
@@ -37,6 +40,10 @@ final class MealEntries: Model, @unchecked Sendable {
     ) {
         self.id = id
         self.$user.id = userId
+        self.$dailyTracking.id = dailyTrackingId
+        if let trackingId = dailyMealTrackingId {
+            self.$dailyMealTracking.id = trackingId
+        }
         self.photoUrl = photoUrl
         self.mealTime = mealTime
         self.notes = notes

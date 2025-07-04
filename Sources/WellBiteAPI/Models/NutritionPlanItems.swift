@@ -20,6 +20,9 @@ final class NutritionPlanItems: Model, @unchecked Sendable {
     @Field(key: .imageUrl) var imageUrl: String
     @Field(key: .kcalTarget) var kcalTarget: Int
     
+    // Relationships
+    @Children(for: \.$nutritionPlanItem) var dailyMealTrackings: [DailyMealTrackings]
+    
     init() {}
     
     init(id: UUID? = nil,

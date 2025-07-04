@@ -1,5 +1,5 @@
 //
-//  MealEntriesMigration.swift
+//  CreateRefreshTokens.swift
 //  WellBiteAPI
 //
 //  Created by Carlos Xavier Carvajal Villegas on 30/6/25.
@@ -8,22 +8,21 @@
 import Vapor
 import Fluent
 
-struct MealEntriesMigration: AsyncMigration {
+final class CreateRefreshTokens: AsyncMigration {
     func prepare(on database: any Database) async throws {
-        try await database.schema(MealEntries.schema)
+        try await database.schema(RefreshTokens.schema)
             .id()
             .field(.userId, .uuid, .required, .references(Users.schema, .id, onDelete: .cascade))
-            .field(.photoUrl, .string, .required)
-            .field(.mealTime, .datetime, .required)
-            .field(.notes, .string)
-            .field(.aiKcalEstimate, .int)
-            .field(.aiMacrosEstimate, .string)
+            .field(.token, .string, .required)
+            .field(.expiresAt, .datetime, .required)
+            .field(.isRevoked, .bool, .required, .sql(.default(false)))
             .field(.createdAt, .datetime)
             .field(.updatedAt, .datetime)
+            .unique(on: .token) // El token debe ser único
             .create()
     }
     
     func revert(on database: any Database) async throws {
-        try await database.schema(MealEntries.schema).delete()
+        try await database.schema(RefreshTokens.schema).delete()
     }
 }

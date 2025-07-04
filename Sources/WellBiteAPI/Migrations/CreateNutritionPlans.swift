@@ -1,5 +1,5 @@
 //
-//  NutritionPlansMigration.swift
+//  CreateNutritionPlans.swift
 //  WellBiteAPI
 //
 //  Created by Carlos Xavier Carvajal Villegas on 30/6/25.
@@ -8,7 +8,7 @@
 import Vapor
 import Fluent
 
-struct NutritionPlansMigration: AsyncMigration {
+final class CreateNutritionPlans: AsyncMigration {
     func prepare(on database: any Database) async throws {
         try await database.schema(NutritionPlans.schema)
             .id()

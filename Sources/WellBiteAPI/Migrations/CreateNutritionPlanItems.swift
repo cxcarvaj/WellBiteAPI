@@ -1,5 +1,5 @@
 //
-//  NutritionPlanItemsMigration.swift
+//  CreateNutritionPlanItems.swift
 //  WellBiteAPI
 //
 //  Created by Carlos Xavier Carvajal Villegas on 30/6/25.
@@ -8,7 +8,7 @@
 import Vapor
 import Fluent
 
-struct NutritionPlanItemsMigration: AsyncMigration {
+final class CreateNutritionPlanItems: AsyncMigration {
     func prepare(on database: any Database) async throws {
         let mealType = try await database.enum("meal_type").read()
 

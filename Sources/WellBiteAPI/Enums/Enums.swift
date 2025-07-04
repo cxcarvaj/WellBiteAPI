@@ -14,8 +14,13 @@ enum Gender: String, Codable {
 }
 
 enum MealType: String, Codable {
-    case breakfast
-    case lunch
-    case dinner
-    case snack
+    case breakfast, lunch, dinner, snack
+}
+
+enum PlanType: String, Codable {
+    case basic, premium
+}
+
+enum Mood: String, Codable {
+    case happy, satisfied, neutral, unsatisfied, sad, anxious, guilty, frustrated
 }

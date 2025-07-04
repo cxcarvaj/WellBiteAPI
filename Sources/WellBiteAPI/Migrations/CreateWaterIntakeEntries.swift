@@ -1,5 +1,5 @@
 //
-//  WaterIntakeEntriesMigration.swift
+//  CreateWaterIntakeEntries.swift
 //  WellBiteAPI
 //
 //  Created by Carlos Xavier Carvajal Villegas on 30/6/25.
@@ -8,7 +8,7 @@
 import Vapor
 import Fluent
 
-final class WaterIntakeEntriesMigration: AsyncMigration {
+final class CreateWaterIntakeEntries: AsyncMigration {
     func prepare(on database: any Database) async throws {
         try await database.schema(WaterIntakeEntries.schema)
             .id()

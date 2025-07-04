@@ -47,6 +47,7 @@ extension FieldKey {
     
     //Table Nutrition Plan Items fields
     static let nutritionPlanId = FieldKey("nutrition_plan_id")
+    static let nutritionPlanItemId = FieldKey("nutrition_plan_item_id")
     static let dayOfWeek = FieldKey("day_of_week")
     static let imageUrl = FieldKey("image_url")
     static let kcalTarget = FieldKey("kcal_target")
@@ -55,8 +56,8 @@ extension FieldKey {
     static let date = FieldKey("date")
     static let totalKcalGoal = FieldKey("total_kcal_goal")
     static let totalKcalConsumed = FieldKey("total_kcal_consumed")
-    static let waterGoalml = FieldKey("water_goal_ml")
-    static let waterIntakeml = FieldKey("water_intake_ml")
+    static let waterGoalMl = FieldKey("water_goal_ml")
+    static let waterIntakeMl = FieldKey("water_intake_ml")
     static let mealsCompleted = FieldKey("meals_completed")
     static let emotionSummary = FieldKey("emotion_summary")
     
@@ -65,6 +66,7 @@ extension FieldKey {
     static let timestamp = FieldKey("timestamp")
     
     //Table Daily Meal Tracking fields
+    static let dailyMealTrackingId = FieldKey("daily_meal_tracking_id")
     static let isCompleted = FieldKey("is_completed")
     static let kcalEstimate = FieldKey("kcal_estimate")
     static let plannedKcal = FieldKey("planned_kcal")

@@ -20,11 +20,21 @@ final class Users: Model, @unchecked Sendable {
     @Field(key: .birthday) var birthday: Date
     @Enum(key: .gender) var gender: Gender
     @Field(key: .avatar) var avatar: String?
-    @Field(key: .showKcal) var showKcal: Bool
     @Timestamp(key: .createdAt, on: .create) var createdAt: Date?
     @Timestamp(key: .updatedAt, on: .update) var updatedAt: Date?
     
+    // Relationships
+    @Children(for: \.$user) var refreshTokens: [RefreshTokens]
+    @Children(for: \.$user) var userSettings: [UserSettings]
+//    @Children(for: \.$user) var subscriptions: [Subscriptions]
+    @Children(for: \.$user) var nutritionPlans: [NutritionPlans]
     @Children(for: \.$user) var dailyTrackings: [DailyTrackings]
+    @Children(for: \.$user) var mealEntries: [MealEntries]
+    @Children(for: \.$user) var emotionalEntries: [EmotionalEntries]
+    
+    // Relationships as profesional
+//    @Children(for: \.$professional) var professionalNotes: [ProfessionalNotes]
+    @Children(for: \.$professional) var createdNutritionPlans: [NutritionPlans]
     
     init() {}
     
@@ -37,8 +47,7 @@ final class Users: Model, @unchecked Sendable {
          birthday: Date,
          gender: Gender,
          avatar: String? = nil,
-         showKcal: Bool = false)
-    {
+    ) {
         self.id = id
         self.email = email
         self.password = password
@@ -48,7 +57,6 @@ final class Users: Model, @unchecked Sendable {
         self.birthday = birthday
         self.gender = gender
         self.avatar = avatar
-        self.showKcal = showKcal
     }
     
 }

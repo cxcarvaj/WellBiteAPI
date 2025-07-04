@@ -13,32 +13,32 @@ final class DailyMealTrackings: Model, @unchecked Sendable {
 
     @ID(key: .id) var id: UUID?
     @Parent(key: .dailyTrackingId) var dailyTracking: DailyTrackings
-    @OptionalParent(key: .mealEntryId) var mealEntry: MealEntries? // Relación opcional
+    @OptionalParent(key: .nutritionPlanItemId) var nutritionPlanItem: NutritionPlanItems?
 
     @Enum(key: .mealType) var mealType: MealType
     @Field(key: .isCompleted) var isCompleted: Bool
-    @Field(key: .kcalEstimate) var kcalEstimate: Int?
     @Field(key: .plannedKcal) var plannedKcal: Int?
     
+    // Relationships
+    @OptionalChild(for: \.$dailyMealTracking) var mealEntry: MealEntries?
+
     init() {}
     
     init(
         id: UUID? = nil,
         dailyTrackingId: DailyTrackings.IDValue,
-        mealEntryId: MealEntries.IDValue? = nil,
+        nutritionPlanItemId: NutritionPlanItems.IDValue? = nil,
         mealType: MealType,
         isCompleted: Bool = false,
-        kcalEstimate: Int? = nil,
         plannedKcal: Int? = nil
     ) {
         self.id = id
         self.$dailyTracking.id = dailyTrackingId
-        if let mealEntryId = mealEntryId {
-            self.$mealEntry.id = mealEntryId
+        if let itemId = nutritionPlanItemId {
+            self.$nutritionPlanItem.id = itemId
         }
         self.mealType = mealType
         self.isCompleted = isCompleted
-        self.kcalEstimate = kcalEstimate
         self.plannedKcal = plannedKcal
     }
 }

@@ -11,9 +11,9 @@ public func configure(_ app: Application) async throws {
     app.passwords.use(.bcrypt)
     
     switch app.environment {
-    case .testing:
-        app.passwords.use(.plaintext)
-    default: break
+        case .testing:
+            app.passwords.use(.plaintext)
+        default: break
     }
 
     guard let hostname = Environment.get("DB_HOST"),
@@ -37,17 +37,27 @@ public func configure(_ app: Application) async throws {
     app.databases.use(.postgres(configuration: psqlConfig), as: .psql)
     print("💾 PostgreSQL configurado correctamente con host: \(hostname), base de datos: \(database)")
 
-    app.migrations.add(SharedEnumsMigration())
-    app.migrations.add(UsersMigrations())
-    app.migrations.add(RefreshTokensMigration())
-    app.migrations.add(NutritionPlansMigration())
-    app.migrations.add(NutritionPlanItemsMigration())
-    app.migrations.add(MealEntriesMigration())
-    app.migrations.add(EmotionalEntriesMigration())
-    app.migrations.add(DailyTrackingsMigration())
-    app.migrations.add(DailyMealTrackingsMigration())
-    app.migrations.add(WaterIntakeEntriesMigration())
-    app.migrations.add(RemoveSharedEnumsMigration())
+    app.migrations.add(CreateSharedEnums())
+
+    // Users and autenticación
+    app.migrations.add(CreateUsers())
+    app.migrations.add(CreateRefreshTokens())
+    app.migrations.add(CreateUserSettings())
+//    app.migrations.add(SubscriptionsMigration())
+
+    // Planes nutricionales
+    app.migrations.add(CreateNutritionPlans())
+    app.migrations.add(CreateNutritionPlanItems())
+
+    // Seguimiento diario
+    app.migrations.add(CreateDailyTrackings())
+    app.migrations.add(CreateWaterIntakeEntries())
+    app.migrations.add(CreateDailyMealTrackings())
+    app.migrations.add(CreateMealEntries())
+    app.migrations.add(CreateEmotionalEntries())
+
+    // Notas profesionales
+//    app.migrations.add(ProfessionalNotesMigration())
 
     app.views.use(.leaf)
 
