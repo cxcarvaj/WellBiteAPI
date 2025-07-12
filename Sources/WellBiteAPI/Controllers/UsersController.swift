@@ -38,7 +38,7 @@ import Fluent
 ///     "password": "securePassword123",
 ///     "firstName": "FirstName",
 ///     "lastName": "LastName",
-///     "role": "user",
+///     "role": "client",
 ///     "birthday": "1990-01-01",
 ///     "gender": "male",
 ///     "avatar": null
