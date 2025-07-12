@@ -57,6 +57,11 @@ cp .env.example .env
 ```
 
 Luego, abre `.env` y personaliza las variables según tu entorno local.
+Para el `API_KEY` que se usa en el Middleware `APIKeyMiddleware.swift` puedes usar el siguiente comando:
+
+```bash
+openssl rand -base64 32
+```
 
 ### 3. Correr las migraciones de Vapor
 
@@ -85,21 +90,21 @@ Para que Vapor funcione correctamente dentro de **Xcode**, asegúrate de que el 
 
 - En **Xcode**: `Product > Scheme > Edit Scheme...`, y luego `Run > Options > Working Directory`.
 
-<!--## 🛠️ Otras acciones-->
-<!---->
+## 🛠️ Otras acciones
+
 <!--### Activar manualmente un nuevo usuario-->
 <!---->
 <!--Cuando un usuario se registra desde la app de iOS, se le envía un email con un enlace de validación. En nuestro caso usando el Simulador de iOS, arrastrar el enlace desde Mail no siempre funciona como se espera.-->
 <!---->
 <!--Esto lo pudimos solucionar usando un cliente de Mac como [DBeaver](https://dbeaver.io/) o [Postico 2](https://eggerapps.at/postico2/) para conectar a la base de datos **PostgreSQL** que hemos levantado con **Docker**, y modificando la propiedad `role` del usuario a `user`.-->
-<!---->
-<!--### Ver todas las rutas registradas-->
-<!---->
-<!--Una forma rápida de inspeccionar tu API y conocer sus rutas disponibles:-->
-<!---->
-<!--```bash-->
-<!--swift run WellBiteAPI routes-->
-<!--```-->
+
+### Ver todas las rutas registradas
+
+Una forma rápida de inspeccionar tu API y conocer sus rutas disponibles:
+
+```bash
+swift run WellBiteAPI routes
+```
 <!--## Getting Started-->
 <!---->
 <!--To build the project using the Swift Package Manager, run the following command in the terminal from the root of the project:-->

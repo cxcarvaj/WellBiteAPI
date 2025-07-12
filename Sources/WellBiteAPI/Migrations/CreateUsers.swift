@@ -19,7 +19,7 @@ final class CreateUsers: AsyncMigration {
              .field(.password, .string, .required)
              .field(.firstName, .string, .required)
              .field(.lastName, .string, .required)
-             .field(.userRole, userRoleEnum, .required, .custom("DEFAULT 'none'"))
+             .field(.role, userRoleEnum, .required, .custom("DEFAULT 'none'"))
              .field(.birthday, .date, .required)
              .field(.gender, genderEnum, .required)
              .field(.avatar, .string)

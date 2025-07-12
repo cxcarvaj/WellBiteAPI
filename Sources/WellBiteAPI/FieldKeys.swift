@@ -26,7 +26,7 @@ extension FieldKey {
     static let userName = FieldKey("user_name")
     static let email = FieldKey("email")
     static let password = FieldKey("password")
-    static let userRole = FieldKey("user_role")
+    static let role = FieldKey("role")
     static let birthday = FieldKey("birth_date")
     static let gender = FieldKey("gender")
     static let avatar = FieldKey("avatar")

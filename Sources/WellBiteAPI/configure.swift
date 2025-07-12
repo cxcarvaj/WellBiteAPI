@@ -60,6 +60,9 @@ public func configure(_ app: Application) async throws {
 //    app.migrations.add(ProfessionalNotesMigration())
 
     app.views.use(.leaf)
+    
+    //El hmac es mi secret que forma parte del JWT
+    await app.jwt.keys.add(hmac: "jobsSteve", digestAlgorithm: .sha256)
 
     // register routes
     try routes(app)
